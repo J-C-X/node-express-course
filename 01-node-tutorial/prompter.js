@@ -3,7 +3,7 @@ const http = require("http");
 var StringDecoder = require("string_decoder").StringDecoder;
 
 let randomNumber = Math.floor(Math.random() * 100) + 1;  // generate a random number between 1 and 100
-let guessResult = '';  
+let guessResult = '';  // Here we'll store the result of the guess
 
 const getBody = (req, callback) => {
   const decode = new StringDecoder("utf-8");
@@ -25,6 +25,7 @@ const getBody = (req, callback) => {
 };
 
 const form = () => {
+  // Here we use string interpolation to insert the result of the guess into the HTML
   return `
     <body>
       <p>Guess a number between 1 and 100:</p>
@@ -61,5 +62,11 @@ const server = http.createServer((req, res) => {
   }
 });
 
+// Add an event listener for the "request" event
+server.on('request', (req) => {
+    console.log("event received:", req.method, req.url);
+  });
+
 server.listen(3000);
 console.log("The server is listening on port 3000.");
+// Hello
